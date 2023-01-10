@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -20,17 +21,37 @@
     Some Inner Ipsums
 &lt;/fe:test&gt;
             </pre>
-            <fe:test data-test="test-value" th:data-title="${title}" fe:title="${testProps.title}" fe:content="${testProps.content}" fe:data="${otherData}">
-                Some Inner Ipsums
-            </fe:test>
 
-            <h2>
-                Normal th:fragment call
-            </h2>
-            <div th:replace="~{fragments/test.html :: test()}">
-                Yada Yada
-            </div>
+
+
+<fe:test data-test="test-value"
+         th:data-title="${title}"
+         fe:title="${testProps.title}" fe:content="${testProps.content}" fe:data="${otherData}">
+    Some Inner Ipsums
+</fe:test>
+
+
+<!--            <h2>-->
+<!--                Normal th:fragment call-->
+<!--            </h2>-->
+<!--            <div th:replace="~{fragments/test.html :: test()}">-->
+<!--                Yada Yada-->
+<!--            </div>-->
         </article>
     </main>
 </body>
 </html>
+
+
+
+<!--<th:block th:fragment="~{path/to/button :: primary()}"></th:block>-->
+
+<!--<fe:button-->
+<!--        fe:fragment="primary"-->
+<!--        p:title="???"-->
+<!--        aria-role="">-->
+
+<!--</fe:button>-->
+
+
+

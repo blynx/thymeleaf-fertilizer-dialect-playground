@@ -8,6 +8,7 @@ import org.thymeleaf.model.IProcessableElementTag
 import org.thymeleaf.processor.element.AbstractElementTagProcessor
 import org.thymeleaf.processor.element.IElementTagStructureHandler
 import org.thymeleaf.standard.expression.Fragment
+import org.thymeleaf.standard.expression.IStandardExpression
 import org.thymeleaf.standard.expression.StandardExpressions
 import org.thymeleaf.standard.processor.StandardReplaceTagProcessor
 import org.thymeleaf.templatemode.TemplateMode
@@ -28,11 +29,11 @@ class FertilizerElementTagProcessor(
     ) {
         val expressionParser = StandardExpressions.getExpressionParser(context.configuration)
         // TODO: Make location configurable. (Even independent from thymeleaf location?)
-        // TODO: Would it be easier to mimic the props directly into the fragment parameters?
+        // TODO: Would it be easier to mimic the props directly into the fragment parameters? :: <comonentName>(<prop>, <prop>, ...)
         // TODO: Can we actually not rely on mimicking a template expression? 😇 Would that be better at all?
         val testFragmentExpression = "~{fragments/$elementName :: $elementName}"
 
-        val fragmentExpression = expressionParser.parseExpression(context, testFragmentExpression)
+        val fragmentExpression: IStandardExpression = expressionParser.parseExpression(context, testFragmentExpression)
         val fragment: Fragment = fragmentExpression.execute(context) as Fragment
         // TODO: maybe some handling for unwanted Fragment values
 
@@ -42,6 +43,7 @@ class FertilizerElementTagProcessor(
         val newModel = modelFactory.createModel();
 
         // Copy all elements into a new Model, yet, modify the root element
+        // TODO: Look into nz.net.ultraq.thymeleaf.layoutdialect.models.ElementMerger, can I adopt things?
         for (i in 1 until fragmentModel.size()-1) {
             val fragmentPart = fragmentModel.get(i)
             if (i == 1) {
@@ -65,10 +67,12 @@ class FertilizerElementTagProcessor(
 
         structureHandler.setTemplateData(fragmentModel.templateData)
 
+
         tag.allAttributes.forEach {
             val plainAttributeName = it.attributeDefinition.attributeName.attributeName
 
             // Process and populate FertilizerDialect (fe:) prefixed attribute variables
+            // TODO: could this be done by a standalone tag processor instead of here?
             if(it.attributeDefinition.attributeName.prefix == dialectPrefix) {
                 // It seems not efficient to extract and reassign the values.
                 // Why doesn't it work like here??:

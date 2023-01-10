@@ -1,8 +1,20 @@
+<!--/*@thymesVar id="title" type="..."*/-->
+<!--/*@thymesVar id="thing" type="..."*/-->
+
+<!-- vs -->
+
+<!--/*@thymesVar id="model" type="..."  // model.title, model.xyz   */-->
+
 <div th:fragment="test()" class="test">
-    <h2 th:text="${title}">Title</h2>
+    before: <h2 th:text="${title}">Title</h2>
     <div th:text="${content}">Content</div>
 
-    <fe:other fe:complex="${data}">
+    <fe:content></fe:content>
+    <fe:conennt name="footer"></fe:conennt>
+
+    <fe:other fe:title="'Other Title'">
         Yada Yada
     </fe:other>
+
+    after: <h2 th:text="${title}">Title</h2>
 </div>

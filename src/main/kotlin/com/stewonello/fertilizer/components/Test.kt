@@ -9,6 +9,7 @@ data class Test(
     var title: String,
     val content: String,
     val data: Map<String, String>? = null
+//    val classForType: String,
 ) : FertilizerComponent() {
 
     /* TODO: ... could we add useful methods and component logic here?? OMG !!
@@ -18,6 +19,8 @@ data class Test(
 
     init {
         title += " 👻 ~~ boohoo greetings from the constructor ~~"
+
+//        classForType = switch { that stuff }
     }
 
     companion object {
